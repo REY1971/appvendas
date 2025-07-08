@@ -12,28 +12,84 @@ public class Venda{
 
     }
 
+    private int procurarIndexItem(Item item){
+        
+        for(int i = 0; i < tamanho; i++){
 
-    public void addItem(Item item){
+            if(carrinho[i].equals(item)){
+                
+                return i;
+
+            }
+            
+        }
+
+        return -1;
+
+    }
+
+    private void redimensionarCarrinho(){
+
+        Item[] aux = new Item[tamanho + 10];
+
+        for(int i = 0; i < carrinho.length ; i++){
+
+            aux[i] = carrinho[i];
+
+        }
+
+        carrinho = aux;
+
+    }
+
+    private void auxAddItem(Item item){
+
+        int index = procurarIndexItem(item);
 
         if(tamanho == carrinho.length){
 
-            Item[] aux = new Item[tamanho + 10];
-
-            for(int i = 0; i < carrinho.length ; i++){
-
-                aux[i] = carrinho[i];
-            }
-
-            
-            carrinho = aux;
+            redimensionarCarrinho();
 
         }
 
-        carrinho[tamanho] = item;
+        if(index == -1){
 
-        tamanho ++;
+            carrinho[tamanho] = item;
+
+            tamanho ++;
+
+        }else{
+
+            carrinho[index].setQuantidade(carrinho[index].getQuantidade() + item.getQuantidade());
 
         }
+
+    }
+
+    public void addItem(Item item){
+
+        auxAddItem(item);
+
+    }
+
+    public void addItem(Produto produto, int qtd){
+
+        Item item = new Item(produto, qtd);
+
+        auxAddItem(item);
+
+
+    }
+
+    public void addItem(Item[] itens){
+
+        for(int i = 0; i < itens.length; i++){
+
+            auxAddItem(itens[i]);
+
+        }
+
+    }
 
     public float valorTotal(){
 
@@ -76,11 +132,15 @@ public class Venda{
         
         Venda v1 = new Venda();
 
+        Venda v2 = new Venda();
+
         Item c1 = new Item(cafe,3);
 
         Item c2 = new Item(feijao, 2);
         
         Item c3 = new Item(feijao, 5);
+
+        Item[] list = {c1,c2,c3};
 
         v1.addItem(c1);
 
@@ -88,7 +148,13 @@ public class Venda{
         
         v1.addItem(c3);
 
+        v2.addItem(cafe, 10);
+
+        v2.addItem(list);
+
         v1.exibir();
+
+        v2.exibir();
         
 
     }
@@ -273,6 +339,18 @@ class Item{
     public float valorTotal(){
 
         return this.Produto.getPrecoVenda() * this.qtd;
+
+    }
+
+    @Override
+    public boolean equals(Object obj){
+
+        if(this == obj) return true;
+        if(obj == null || getClass() != obj.getClass()) return false;
+
+        Item outro = (Item) obj;
+
+        return this.getCodigo().equals(outro.getCodigo());
 
     }
 
