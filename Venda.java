@@ -42,33 +42,36 @@ public class Venda{
 
     }
 
-    private void auxAddItem(Item item){
+    private void addItem(Item item){
 
-        int index = procurarIndexItem(item);
+        if(item.getProduto().getEstoque() > 0){
+           
+            int index = procurarIndexItem(item);
 
-        if(tamanho == carrinho.length){
+            if(tamanho == carrinho.length){
 
-            redimensionarCarrinho();
+                redimensionarCarrinho();
 
-        }
+            }
 
-        if(index == -1){
+            if(index == -1){
 
-            carrinho[tamanho] = item;
+                carrinho[tamanho] = item;
 
-            tamanho ++;
+                tamanho ++;
 
+            }else{
+
+                carrinho[index].setQuantidade(carrinho[index].getQuantidade() + item.getQuantidade());
+
+            }
+        
         }else{
 
-            carrinho[index].setQuantidade(carrinho[index].getQuantidade() + item.getQuantidade());
+            System.out.println("Produto sem estoque");
 
         }
 
-    }
-
-    public void addItem(Item item){
-
-        auxAddItem(item);
 
     }
 
@@ -76,7 +79,7 @@ public class Venda{
 
         Item item = new Item(produto, qtd);
 
-        auxAddItem(item);
+        addItem(item);
 
 
     }
@@ -85,7 +88,7 @@ public class Venda{
 
         for(int i = 0; i < itens.length; i++){
 
-            auxAddItem(itens[i]);
+            addItem(itens[i]);
 
         }
 
@@ -126,7 +129,7 @@ public class Venda{
 
     public static void main(String [] args){
 
-        Produto cafe = new Produto("023","cafe",25,5.60f,10.0f);
+        Produto cafe = new Produto("023","cafe",0,5.60f,10.0f);
         
         Produto feijao = new Produto("025","feijao",15,3.60f,5.4f);
         
@@ -148,7 +151,7 @@ public class Venda{
         
         v1.addItem(c3);
 
-        v2.addItem(cafe, 10);
+        v2.addItem(cafe, 30);
 
         v2.addItem(list);
 
@@ -287,18 +290,21 @@ class Item{
 
     public Item(Produto Produto, int qtd){
 
+        if(qtd > 0){
 
-        this.Produto = Produto;
-        if(qtd <= this.Produto.getEstoque()){
-           
-            this.qtd = qtd;
-        
-        }else{
+            this.Produto = Produto;
+            if(qtd <= this.Produto.getEstoque()){
+            
+                this.qtd = qtd;
+            
+            }else{
 
-            this.qtd = this.Produto.getEstoque(); 
-            System.out.printf("Estoque insuficiente, esse produto possui %d unidades\n",this.Produto.getEstoque());
+                this.qtd = this.Produto.getEstoque(); 
+                System.out.printf("Estoque insuficiente, %s possui %d unidades\n",this.Produto.getNome(),this.Produto.getEstoque());
 
-        }
+            }
+
+        }else System.out.println("Erro, impossivel gerar item.");
 
     }
 
@@ -313,8 +319,23 @@ class Item{
     }
 
     public void setQuantidade(int qtd){
+        
+        if(qtd > 0){
 
-        this.qtd = qtd;
+           
+        if(qtd <= this.Produto.getEstoque()){
+           
+            this.qtd = qtd;
+        
+        }else{
+
+            this.qtd = this.Produto.getEstoque(); 
+            System.out.printf("Estoque insuficiente, %s possui %d unidades\n",this.Produto.getNome(),this.Produto.getEstoque());
+
+        }
+
+        }return;
+        
     }
 
 
@@ -331,7 +352,7 @@ class Item{
     }
 
     public int getQuantidade(){
-
+        
         return this.qtd;
 
     }
