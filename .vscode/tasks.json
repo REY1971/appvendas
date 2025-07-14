@@ -1,0 +1,36 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Compilar Java",
+      "type": "shell",
+      "command": "javac",
+      "args": [
+        "-d",
+        "bin",
+        "-cp",
+        "src",
+        "src\\loja\\app\\Main.java"
+      ],
+      "problemMatcher": [
+        "$javac"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Executar Main",
+      "type": "shell",
+      "command": "java",
+      "args": [
+        "-cp",
+        "bin",
+        "loja.app.Main"
+      ],
+      "dependsOn": "Compilar Java",
+      "group": "test"
+    }
+  ]
+}

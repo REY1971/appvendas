@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Venda",
+      "request": "launch",
+      "mainClass": "loja.model.Venda"
+    },
+    {
+      "type": "java",
+      "name": "Executar Main (bin local)",
+      "request": "launch",
+      "mainClass": "loja.app.Main",
+      "classPaths": [
+        "${workspaceFolder}/bin"
+      ]
+    }
+  ]
+}
