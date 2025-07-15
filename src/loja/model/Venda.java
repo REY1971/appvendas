@@ -64,7 +64,7 @@ public class Venda{
 
         }else{
 
-                carrinho[index].setQuantidade(carrinho[index].getQuantidade() + item.getQuantidade());
+            carrinho[index].setQuantidade(carrinho[index].getQuantidade() + item.getQuantidade());
 
             }
         
@@ -102,21 +102,25 @@ public class Venda{
 
             if(carrinho[i].equals(item)){
                 
-                if(carrinho[i].getQuantidade() > 0){
+                if(carrinho[i].getQuantidade() - item.getQuantidade() > 0){
 
-
+                    carrinho[i].setQuantidade(carrinho[i].getQuantidade()-item.getQuantidade());
+                    return;
 
                 }else{
 
-                    //carrinho[i] = nu
+                    for(int j = i; j < tamanho; j++){
+
+                        carrinho[j] = carrinho[j+1];
+
+                    }
+
+                    tamanho--;
+                    return;
 
                 }
 
-                carrinho[i].setQuantidade(carrinho[i].getQuantidade()-item.getQuantidade());
-
-            }
-
-        tamanho--;
+            } 
 
         }
 
@@ -144,16 +148,6 @@ public class Venda{
         System.out.printf("Valor Total: R$ %.2f\n\n",this.valorTotal());
     }
     
-     public void vender(){
-        
-        //this.Produto.setEstoque(this.Produto.getEstoque() - this.qtd);
-
-    }
-
-
-    
-
-
 
    public static void main(String [] args){
 
@@ -174,6 +168,11 @@ public class Venda{
         v1.addItem(c2);
         
         v1.addItem(c3);
+
+        v1.exibir();
+
+        v1.removeItem(c3);
+        v1.removeItem(c2);
 
         v1.exibir();
         

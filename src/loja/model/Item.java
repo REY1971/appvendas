@@ -9,22 +9,9 @@ public class Item{
 
     public Item(Produto Produto, int qtd){
 
-        if(qtd > 0){
-
-            this.Produto = Produto;
-            if(qtd <= this.Produto.getEstoque()){
+        this.Produto = Produto;
+        this.qtd = qtd;
             
-                this.qtd = qtd;
-            
-            }else{
-
-                this.qtd = this.Produto.getEstoque(); 
-                System.out.printf("Estoque insuficiente, %s possui %d unidades\n",this.Produto.getNome(),this.Produto.getEstoque());
-
-            }
-
-        }else System.out.println("Erro, impossivel gerar item.");
-
     }
 
     public void setCodigo(String codigo){
@@ -38,22 +25,8 @@ public class Item{
     }
 
     public void setQuantidade(int qtd){
-        
-        if(qtd > 0){
-
            
-        if(qtd <= this.Produto.getEstoque()){
-           
-            this.qtd = qtd;
-        
-        }else{
-
-            this.qtd = this.Produto.getEstoque(); 
-            System.out.printf("Estoque insuficiente, %s possui %d unidades\n",this.Produto.getNome(),this.Produto.getEstoque());
-
-        }
-
-        }return;
+        this.qtd = qtd;
         
     }
 
