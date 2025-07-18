@@ -14,11 +14,6 @@ public class Item{
             
     }
 
-    public void setCodigo(String codigo){
-
-        this.Produto.setCodigo(codigo);
-    }
-
     public void setProduto(Produto Produto){
 
         this.Produto = Produto;
@@ -28,13 +23,6 @@ public class Item{
            
         this.qtd = qtd;
         
-    }
-
-
-    public String getCodigo(){
-
-        return this.Produto.getCodigo();
-
     }
 
     public Produto getProduto(){
@@ -63,7 +51,7 @@ public class Item{
 
         Item outro = (Item) obj;
 
-        return this.getCodigo().equals(outro.getCodigo());
+        return this.getProduto().getCodigo().equals(outro.getProduto().getCodigo());
 
     }
 

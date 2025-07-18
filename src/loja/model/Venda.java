@@ -1,5 +1,7 @@
 package loja.model;
 
+import loja.service.ItemService;
+
 public class Venda{
 
     private int tamanho;
@@ -64,7 +66,7 @@ public class Venda{
 
         }else{
 
-            carrinho[index].setQuantidade(carrinho[index].getQuantidade() + item.getQuantidade());
+            ItemService.atualizarQuantidade(carrinho[index],carrinho[index].getQuantidade() + item.getQuantidade());
 
             }
         
@@ -79,7 +81,7 @@ public class Venda{
 
     public void addItem(Produto produto, int qtd){
 
-        Item item = new Item(produto, qtd);
+        Item item = ItemService.criarItem(produto, qtd);
 
         addItem(item);
 
@@ -104,7 +106,7 @@ public class Venda{
                 
                 if(carrinho[i].getQuantidade() - item.getQuantidade() > 0){
 
-                    carrinho[i].setQuantidade(carrinho[i].getQuantidade()-item.getQuantidade());
+                    ItemService.atualizarQuantidade(carrinho[i],carrinho[i].getQuantidade()-item.getQuantidade());
                     return;
 
                 }else{
@@ -151,30 +153,7 @@ public class Venda{
 
    public static void main(String [] args){
 
-        Produto cafe = new Produto("023","cafe",25,5.60f,10.0f);
         
-        Produto feijao = new Produto("025","feijao",15,3.60f,5.4f);
-        
-        Venda v1 = new Venda();
-
-        Item c1 = new Item(cafe,3);
-
-        Item c2 = new Item(feijao, 2);
-        
-        Item c3 = new Item(feijao, 5);
-
-        v1.addItem(c1);
-
-        v1.addItem(c2);
-        
-        v1.addItem(c3);
-
-        v1.exibir();
-
-        v1.removeItem(c3);
-        v1.removeItem(c2);
-
-        v1.exibir();
         
 
     }

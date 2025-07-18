@@ -3,18 +3,9 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Venda",
+      "name": "ProdutoService",
       "request": "launch",
-      "mainClass": "loja.model.Venda"
-    },
-    {
-      "type": "java",
-      "name": "Executar Main (bin local)",
-      "request": "launch",
-      "mainClass": "loja.app.Main",
-      "classPaths": [
-        "${workspaceFolder}/bin"
-      ]
+      "mainClass": "loja.service.ProdutoService"
     }
   ]
 }

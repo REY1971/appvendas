@@ -12,9 +12,13 @@ public class Produto{
 
     private float precoVenda;
 
-    public Produto(String codigo, String nome, int estoque, float precoCusto, float precoVenda){
+    private float icms;
 
-        this.codigo = codigo;
+    private static int ultimo = 1;
+
+    public Produto(String nome, int estoque, float icms,float precoCusto, float precoVenda){
+
+        this.codigo = String.format("%04d", ultimo++);
 
         this.nome = nome;
 
@@ -22,17 +26,9 @@ public class Produto{
 
         this.precoCusto = precoCusto;
 
-        if(precoVenda >= this.precoCusto){
-
-            this.precoVenda = precoVenda;
-
-        }else this.precoVenda = precoCusto;
-
-    }
-
-    public void setCodigo(String codigo){
-
-        this.codigo = codigo;
+        this.precoVenda = precoVenda;
+        
+        this.icms = icms;
     }
 
     public void setNome(String nome){
@@ -52,13 +48,12 @@ public class Produto{
 
     public void setPrecoVenda(float precoVenda){
         
-        if(precoVenda >= this.precoCusto){
+        this.precoVenda = precoVenda;
 
-            this.precoVenda = precoVenda;
-
-        }else System.out.println("Erro, valor menor que o custo.");
     }
 
+    public void setIcms(float icms){this.icms = icms;}
+    
     public String getCodigo(){
 
         return this.codigo;
@@ -89,6 +84,12 @@ public class Produto{
 
     }
 
+    public float getIcms(){
+
+        return icms;
+
+    }
+
     public float calcularMargemLucro(){
 
         return (this.precoVenda - this.precoCusto)/this.precoVenda;
@@ -103,8 +104,9 @@ public class Produto{
             "Estoque        : %d unidades\n" +
             "Preco Custo    : R$ %.2f\n" +
             "Preco Venda    : R$ %.2f\n" +
+            "Icms           : R$ %.2f\n" +
             "Margem de Lucro: %.1f%%\n",
-            nome, codigo, estoque, precoCusto, precoVenda,this.calcularMargemLucro()*100
+            nome, codigo, estoque, precoCusto, precoVenda,icms,this.calcularMargemLucro()*100
             );
     }
 
