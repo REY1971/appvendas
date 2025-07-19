@@ -2,31 +2,23 @@ package loja.controller;
 
 import loja.model.Cliente;
 import loja.service.ClienteService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/clientes")
 public class ClienteController {
 
-    @Autowired
-    private ClienteService clienteService;
+    private ClienteService clienteService = new ClienteService();
 
-    @PostMapping
-    public Cliente cadastrarCliente(@RequestBody Cliente cliente) {
+    public boolean cadastrarCliente(String cpf, String nome, String email, String telefone) {
+        Cliente cliente = new Cliente(cpf, nome, email, telefone);
         return clienteService.cadastrarCliente(cliente);
     }
 
-    @GetMapping
     public List<Cliente> listarClientes() {
         return clienteService.listarClientes();
     }
 
-    @GetMapping("/{cpf}")
-    public Cliente buscarPorCpf(@PathVariable String cpf) {
+    public Cliente buscarClientePorCpf(String cpf) {
         return clienteService.buscarPorCpf(cpf);
     }
 }
-
